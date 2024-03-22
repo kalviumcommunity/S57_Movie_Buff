@@ -1,11 +1,12 @@
 const express = require("express");
-
+const mongoose = require("mongoose");
+const { connectDB, checkConnection } = require("./db");
+const routes = require("./routes.js");
 const app = express();
-
-app.get("/ping", (req, res) => {
-  res.send("pong");
-});
 const port = 3000;
+app.use(express.json());
+app.use("/api", routes);
+connectDB();
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log("Running on PORT", port);
 });
